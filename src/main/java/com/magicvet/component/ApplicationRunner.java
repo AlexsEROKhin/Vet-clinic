@@ -25,7 +25,7 @@ public class ApplicationRunner {
                 }else{
                     System.out.println("Pet has not been added.");
                 }
-
+                System.out.println(client);
             }
         }
     }
