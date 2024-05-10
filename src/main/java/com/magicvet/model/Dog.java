@@ -3,7 +3,18 @@ package com.magicvet.model;
 import java.util.Objects;
 
 public class Dog extends Pet{
+
+    public static final String xS = "xS";
+    public static final String S = "S";
+    public static final String M = "M";
+    public static final String L = "L";
+    public static final String xxL = "xxL";
     private String size;
+
+    public Dog(){ }
+    public Dog(String size){
+        this.size = size;
+    }
 
     @Override
     public String toString() {
