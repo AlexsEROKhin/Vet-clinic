@@ -9,26 +9,40 @@ import com.magicvet.service.PetService;
 public class ApplicationRunner {
     private final ClientService clientService = new ClientService();
     private final PetService petService = new PetService();
+
     public void run() {
-        if(Authenticator.auth()){
+        if (Authenticator.auth()) {
             Client client = clientService.registerNewClient();
 
-            if(client != null){
-                System.out.print("Would you like to register your pet? (yes/no): ");
-                String choice = Main.SCANNER.nextLine();
-                if (choice.equalsIgnoreCase("yes")) {
-                    System.out.println("Adding a new pet.");
-                    Pet pet = petService.registerNewPet();
-                    if(pet != null){
-                        client.setPet(pet);
-                        pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
-                        System.out.println("Pet has been added.");
-                    }
-                }else{
-                    System.out.println("Pet has not been added.");
-                }
+            if (client != null) {
+                registerPets(client);
+
                 System.out.println(client);
             }
+        }
+    }
+
+    private void registerPets(Client client){
+        boolean continueAddPet = true;
+
+        while(continueAddPet){
+            addPet(client);
+
+            System.out.print("Do you want to add more pets for the current client? (y/n): ");
+            String answer = Main.SCANNER.nextLine();
+            if("n".equals(answer)){
+                continueAddPet = false;
+            }
+        }
+    }
+    private void addPet(Client client){
+        System.out.print("Adding a new pet. ");
+
+        Pet pet = petService.registerNewPet();
+        if (pet != null) {
+            client.addPet(pet);
+            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
+            System.out.println("Pet has been added.");
         }
     }
 }
