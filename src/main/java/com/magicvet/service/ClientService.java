@@ -50,6 +50,9 @@ return client;
         client.setFirstName(firstName);
         client.setLastName(lastName);
 
+        System.out.print("Location: ");
+        String location = Main.SCANNER.nextLine();
+        client.setLocation(Client.Location.valueOf(location));
 
         return client;
     }
