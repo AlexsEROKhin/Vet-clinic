@@ -9,22 +9,25 @@ public class Dog extends Pet{
     private HealthState healthState;
 
     public Dog(){ }
+    @Override
+    public String toString() {
+        return "Pet: " +
+                "type = " + getType() +
+                ", sex = " + getSex() +
+                ", age = " + getSex() +
+                ", name = " + getName() +
+                ", size = " + getSize() +
+                ", ownerName = " + getOwnerName() +
+                ", healthState = " + healthState +
+                ", registrationDate = "
+                + getRegistrationDate().format(FORMATTER)
+                ;
+    }
     public Dog(Size size, HealthState healthState){
         this.size = size;
         this.healthState = healthState;
     }
 
-    @Override
-    public String toString() {
-        return "Dog: "
-                + " sex = " + getSex()
-                + ", age = " + getAge()
-                + ", name = " + getName()
-                + ", ownerName = " + getOwnerName()
-                + ", size = " + size +
-                ", healthState = " + healthState +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,6 +85,17 @@ public class Dog extends Pet{
 
         Size(int value){
             this.value = value;
+        }
+        public static Size fromString(String value){
+            for(Size size : values()){
+                if(size.toString().equals(value)){
+                    return size;
+                }
+            }
+
+            System.out.println("Unable to parse value '" + value + "'. Using default value: " + UNKNOWN);
+
+            return UNKNOWN;
         }
 
         public int getValue() {
